@@ -3,7 +3,7 @@ package com.example.eioms;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+//链接mysql
 public class DBOpenHelper {
     private static String diver = "com.mysql.jdbc.Driver";
     //加入utf-8是为了后面往表中输入中文，表中不会出现乱码的情况

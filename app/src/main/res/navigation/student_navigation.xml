@@ -9,7 +9,7 @@
         android:id="@+id/nav_notice"
         android:name="com.example.eioms.student.ui.notice.NoticeFragment"
         android:label="公告"
-        tools:layout="@layout/fragment_notice" />
+        tools:layout="@layout/notice_fragment" />
 
     <fragment
         android:id="@+id/nav_journal"

@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("登录");
 
         sp = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
+
+        //查找界面元素
         etAccount = findViewById(R.id.et_username);
         etId = findViewById(R.id.et_id);
         btnLogin = findViewById(R.id.bt_login);
@@ -83,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         String account = etAccount.getText().toString();
         String id = etId.getText().toString();
         Data app = (Data) getApplication();
-
+        //启动数据库查询异步线程并阻塞
         GetInfo getInfo = new GetInfo(account,id,app);
         Thread thread = new Thread(getInfo);
         thread.start();
@@ -94,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             //记录用户信息
             saveinfo();
             Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-
+            //根据不同身份切换页面
             switch (outh){
                 case 0:
                     startActivity(new Intent(this, StudentActivity.class));
@@ -126,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cbSave.isChecked()) {
-            //记住用户名、密码、
+            //记住用户名、密码
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("USERNAME", etAccount.getText().toString());
             editor.putString("ID", etId.getText().toString());
@@ -139,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
 }
 
+//连接数据库获取信息的异步类
 class GetInfo implements Runnable{
     private String number;
     private String id;
@@ -162,6 +165,7 @@ class GetInfo implements Runnable{
     public void run() {
         Connection conn = null;
         conn =(Connection) DBOpenHelper.getConn();
+        //获取数据库中身份证信息
         String sql = "SELECT id from user WHERE user='"+number+"'";
         Statement st;
         try {
@@ -169,13 +173,16 @@ class GetInfo implements Runnable{
             ResultSet rs = st.executeQuery(sql);
             rs.next();
             id = rs.getString(1);
+            //如果与输入一致
             if(inputid.equals(id))
             {
+                //获取用户身份
                 sql = "SELECT AUTHORITY from user WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
                 auth = rs.getString(1);
 
+                //获取用户姓名
                 sql = "SELECT name from user WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
