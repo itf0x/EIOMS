@@ -13,6 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eioms.student.StudentActivity;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
         getSupportActionBar().setTitle("登录");
 
         sp = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
             switch (outh){
                 case 0:
-                    //startActivity(new Intent(this, StudentActivity.class));
+                    startActivity(new Intent(this, StudentActivity.class));
                     break;
                 case 1:
                     //startActivity(new Intent(this, TeacherActivity.class));

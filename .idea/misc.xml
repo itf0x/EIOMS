@@ -3,8 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/account_settings.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/bulletin_board.xml" value="0.1215" />
         <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/edit_text_bg.xml" value="0.1355" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/message_alert.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/message_text.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/notebook.xml" value="0.1215" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/drawable/side_nav_bar.xml" value="0.1215" />
         <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/activity_main.xml" value="0.1515625" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/activity_student.xml" value="0.1" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/app_bar_student.xml" value="0.1515625" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/content_student.xml" value="0.1" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/fragment_home.xml" value="0.1515625" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/fragment_slideshow.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/login_activity.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/nav_header_student.xml" value="0.1" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/student_activity.xml" value="0.125" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/student_content.xml" value="0.125" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/layout/student_nav_header.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/menu/activity_main_drawer.xml" value="0.1515625" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/menu/activity_student_drawer.xml" value="0.1515625" />
+        <entry key="..\:/Users/LYH/OneDrive/Program/Android/EIOMS/app/src/main/res/menu/student.xml" value="0.1515625" />
       </map>
     </option>
   </component>

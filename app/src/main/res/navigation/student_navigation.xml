@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_notice">
+
+    <fragment
+        android:id="@+id/nav_notice"
+        android:name="com.example.eioms.student.ui.notice.NoticeFragment"
+        android:label="公告"
+        tools:layout="@layout/fragment_notice" />
+
+    <fragment
+        android:id="@+id/nav_journal"
+        android:name="com.example.eioms.student.ui.journal.JournalFragment"
+        android:label="日志"
+        tools:layout="@layout/fragment_journal" />
+
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="com.example.eioms.student.ui.feedback.FeedbackFragment"
+        android:label="反馈"
+        tools:layout="@layout/fragment_feedback" />
+
+    <fragment
+        android:id="@+id/nav_message"
+        android:name="com.example.eioms.student.ui.message.MessageFragment"
+        android:label="留言"
+        tools:layout="@layout/fragment_message" />
+
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="com.example.eioms.student.ui.info.InfoFragment"
+        android:label="个人信息"
+        tools:layout="@layout/fragment_info" />
+</navigation>
