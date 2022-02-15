@@ -15,7 +15,7 @@
         android:id="@+id/nav_journal"
         android:name="com.example.eioms.student.ui.journal.JournalFragment"
         android:label="日志"
-        tools:layout="@layout/fragment_journal" />
+        tools:layout="@layout/journal_fragment" />
 
     <fragment
         android:id="@+id/nav_feedback"
@@ -33,6 +33,6 @@
         android:id="@+id/nav_info"
         android:name="com.example.eioms.student.ui.info.InfoFragment"
         android:label="个人信息"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/info_fragment" />
 
 </navigation>

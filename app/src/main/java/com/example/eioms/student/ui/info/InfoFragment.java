@@ -41,7 +41,6 @@ public class InfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.info_fragment, container, false);
         // Inflate the layout for this fragment
         Data app = (Data)getActivity().getApplication();
-        app.getUsername();
 
         id = view.findViewById(R.id.et_id);
         username = view.findViewById(R.id.et_username);
