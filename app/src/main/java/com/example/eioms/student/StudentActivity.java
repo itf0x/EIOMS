@@ -31,8 +31,8 @@ public class StudentActivity extends AppCompatActivity {
         binding = StudentActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarStudent.toolbar);
-        binding.appBarStudent.fab.setOnClickListener(new View.OnClickListener() {
+        setSupportActionBar(binding.studentAppBar.toolbar);
+        binding.studentAppBar.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -56,7 +56,7 @@ public class StudentActivity extends AppCompatActivity {
 
         TextView username = header.findViewById(R.id.tv_username);
         Data app = (Data)getApplication();
-        username.setText(app.getUsername());
+        username.setText(app.getName());
     }
 
     @Override

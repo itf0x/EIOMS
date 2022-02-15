@@ -176,6 +176,8 @@ class GetInfo implements Runnable{
             //如果与输入一致
             if(inputid.equals(id))
             {
+                app.setUsername(number);
+                app.setId(inputid);
                 //获取用户身份
                 sql = "SELECT AUTHORITY from user WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
@@ -187,7 +189,7 @@ class GetInfo implements Runnable{
                 rs = st.executeQuery(sql);
                 rs.next();
                 name = rs.getString(1);
-                app.setUsername(name);
+                app.setName(name);
 
                 res = Integer.parseInt(auth);
             }

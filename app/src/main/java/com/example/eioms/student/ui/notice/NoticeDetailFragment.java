@@ -12,11 +12,6 @@ import android.widget.TextView;
 import com.example.eioms.Bean;
 import com.example.eioms.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NoticeDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NoticeDetailFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
