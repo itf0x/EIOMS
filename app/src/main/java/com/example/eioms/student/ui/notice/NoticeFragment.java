@@ -1,6 +1,7 @@
 package com.example.eioms.student.ui.notice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -58,12 +59,23 @@ public class NoticeFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            //元素点击动作
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
             myItemRecyclerViewAdapter.setRecyclerItemClickListener(new MyItemRecyclerViewAdapter.OnRecyclerItemClickListener() {
                 @Override
                 public void onRecyclerItemClick(int position) {
-                    Toast.makeText(view.getContext(), "点击了"+position, Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("DATA",data.get(position));
+                    NoticeDetailFragment noticeDetailFragment = new NoticeDetailFragment();
+                    noticeDetailFragment.setArguments(bundle);
+
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment_content_student, noticeDetailFragment, null)
+                            .addToBackStack(null)
+                            .commit();
+
                 }
             });
         }

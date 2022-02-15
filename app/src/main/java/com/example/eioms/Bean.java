@@ -1,6 +1,9 @@
 package com.example.eioms;
 
-public class Bean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Bean implements Parcelable {
 
     private String id;
     private String userid;
@@ -8,6 +11,32 @@ public class Bean {
     private String title;
     private String content;
     private String time;
+
+
+    public Bean(){
+
+    }
+
+    protected Bean(Parcel in) {
+        id = in.readString();
+        userid = in.readString();
+        username = in.readString();
+        title = in.readString();
+        content = in.readString();
+        time = in.readString();
+    }
+
+    public static final Creator<Bean> CREATOR = new Creator<Bean>() {
+        @Override
+        public Bean createFromParcel(Parcel in) {
+            return new Bean(in);
+        }
+
+        @Override
+        public Bean[] newArray(int size) {
+            return new Bean[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -55,5 +84,21 @@ public class Bean {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(userid);
+        parcel.writeString(username);
+        parcel.writeString(title);
+        parcel.writeString(content);
+        parcel.writeString(time);
+
     }
 }

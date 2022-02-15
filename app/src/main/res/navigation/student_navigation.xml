@@ -34,4 +34,5 @@
         android:name="com.example.eioms.student.ui.info.InfoFragment"
         android:label="个人信息"
         tools:layout="@layout/fragment_info" />
+
 </navigation>
