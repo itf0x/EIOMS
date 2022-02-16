@@ -1,17 +1,15 @@
-package com.example.eioms.student.ui.feedback;
+package com.example.eioms.student.ui.message;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eioms.Bean;
 import com.example.eioms.DBOpenHelper;
@@ -29,7 +27,7 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  */
-public class FeedbackFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
     private List<Bean> data = new ArrayList<>();
 
@@ -45,8 +43,8 @@ public class FeedbackFragment extends Fragment {
         FloatingActionButton button = view.findViewById(R.id.bt_send);
 
         //异步查询服务器公告
-        GetFeedback getFeedback = new GetFeedback();
-        Thread thread = new Thread(getFeedback);
+        GetMessage getMessage = new GetMessage();
+        Thread thread = new Thread(getMessage);
         thread.start();
         try {
             thread.join();
@@ -54,7 +52,7 @@ public class FeedbackFragment extends Fragment {
             e.printStackTrace();
         }
         //取回数据
-        data = getFeedback.getData();
+        data = getMessage.getData();
 
         // Set the adapter
         if (view instanceof CoordinatorLayout) {
@@ -69,12 +67,12 @@ public class FeedbackFragment extends Fragment {
                 public void onRecyclerItemClick(int position) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("DATA",data.get(position));
-                    FeedbackDetailFragment feedbackDetailFragment = new FeedbackDetailFragment();
-                    feedbackDetailFragment.setArguments(bundle);
+                    MessageDetailFragment messageDetailFragment = new MessageDetailFragment();
+                    messageDetailFragment.setArguments(bundle);
 
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_student, feedbackDetailFragment, "comment")
+                            .add(R.id.nav_host_fragment_content_student, messageDetailFragment, "comment")
                             .addToBackStack(null)
                             .commit();
 
@@ -87,7 +85,7 @@ public class FeedbackFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.nav_host_fragment_content_student,new SendFeedbackFragment(),"comment")
+                        .add(R.id.nav_host_fragment_content_student,new SendMessageFragment(),"comment")
                         .addToBackStack(null).commit();
             }
         });
@@ -97,7 +95,7 @@ public class FeedbackFragment extends Fragment {
 }
 
 //连接数据库获取信息的异步类
-class GetFeedback implements Runnable{
+class GetMessage implements Runnable{
     private List<Bean> data = new ArrayList<>();
 
     public List<Bean> getData() {
@@ -108,7 +106,7 @@ class GetFeedback implements Runnable{
     public void run() {
         Connection conn = DBOpenHelper.getConn();
         //获取数据库中公告信息
-        String sql = "SELECT f.ID,f.`USER`,f.CONTENT,f.TIME,f.REPLY,u.`NAME` FROM feedback as f LEFT JOIN user as u on f.`USER` = u.`USER`";
+        String sql = "SELECT f.ID,f.`USER`,f.CONTENT,f.TIME,f.REPLY,u.`NAME` FROM message as f LEFT JOIN user as u on f.`USER` = u.`USER`";
         Statement st;
         try {
             st = conn.createStatement();

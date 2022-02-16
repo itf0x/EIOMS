@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -111,6 +112,7 @@ class GetNotice implements Runnable{
                 bean.setUsername(rs.getString(6));
                 data.add(bean);
             }
+            Collections.reverse(data);
             st.close();
             conn.close();
         } catch (SQLException e) {

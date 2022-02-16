@@ -1,11 +1,11 @@
-package com.example.eioms.student.ui.feedback;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.eioms.student.ui.message;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eioms.Bean;
 import com.example.eioms.databinding.FeedbackFragmentBinding;
