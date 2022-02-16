@@ -1,4 +1,4 @@
-package com.example.eioms.student.ui.feedback;
+package com.example.eioms.teacher.ui.feedback;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.eioms.Bean;
 import com.example.eioms.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FeedbackDetailFragment extends Fragment {
 
@@ -36,6 +37,8 @@ public class FeedbackDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.feedback_detail_fragment, container, false);
+        FloatingActionButton button = view.findViewById(R.id.bt_send);
+
         if (getArguments() != null) {
             data = getArguments().getParcelable("DATA");
             reply = view.findViewById(R.id.tv_reply);
@@ -48,7 +51,28 @@ public class FeedbackDetailFragment extends Fragment {
             username.setText(data.getUsername());
             content.setText(data.getContent());
         }
-        view.findViewById(R.id.bt_send).setVisibility(View.GONE);
+
+        if(data.getReply() != null)
+        {
+            button.setVisibility(View.GONE);
+        }
+        else {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("DATA",data);
+                    SendFeedbackFragment sendFeedbackFragment = new SendFeedbackFragment();
+                    sendFeedbackFragment.setArguments(bundle);
+
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.nav_host_fragment_content_teacher,sendFeedbackFragment,"comment")
+                            .addToBackStack(null).commit();
+                }
+            });
+        }
+
         view.setFocusableInTouchMode(true);
         view.requestFocus();
 

@@ -1,17 +1,15 @@
-package com.example.eioms.student.ui.feedback;
+package com.example.eioms.teacher.ui.feedback;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eioms.Bean;
 import com.example.eioms.DBOpenHelper;
@@ -43,6 +41,7 @@ public class FeedbackFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.feedback_fragment_list, container, false);
         FloatingActionButton button = view.findViewById(R.id.bt_newfeedback);
+        button.setVisibility(View.GONE);
 
         //异步查询服务器公告
         GetFeedback getFeedback = new GetFeedback();
@@ -74,23 +73,13 @@ public class FeedbackFragment extends Fragment {
 
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_student, feedbackDetailFragment, "comment")
+                            .add(R.id.nav_host_fragment_content_teacher, feedbackDetailFragment, "comment")
                             .addToBackStack(null)
                             .commit();
 
                 }
             });
         }
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.nav_host_fragment_content_student,new SendFeedbackFragment(),"comment")
-                        .addToBackStack(null).commit();
-            }
-        });
 
         return view;
     }
