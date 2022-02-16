@@ -40,7 +40,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.feedback_fragment_list, container, false);
-        FloatingActionButton button = view.findViewById(R.id.bt_send);
+        FloatingActionButton button = view.findViewById(R.id.bt_newfeedback);
 
         //异步查询服务器公告
         GetMessage getMessage = new GetMessage();
