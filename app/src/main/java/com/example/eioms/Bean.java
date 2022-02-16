@@ -11,7 +11,7 @@ public class Bean implements Parcelable {
     private String title;
     private String content;
     private String time;
-
+    private String reply;
 
     public Bean(){
 
@@ -24,6 +24,7 @@ public class Bean implements Parcelable {
         title = in.readString();
         content = in.readString();
         time = in.readString();
+        reply = in.readString();
     }
 
     public static final Creator<Bean> CREATOR = new Creator<Bean>() {
@@ -86,6 +87,14 @@ public class Bean implements Parcelable {
         this.time = time;
     }
 
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,6 +108,7 @@ public class Bean implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(content);
         parcel.writeString(time);
+        parcel.writeString(reply);
 
     }
 }

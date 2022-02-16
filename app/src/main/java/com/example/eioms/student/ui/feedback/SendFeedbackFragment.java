@@ -1,25 +1,21 @@
-package com.example.eioms.student.ui.journal;
+package com.example.eioms.student.ui.feedback;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.eioms.DBOpenHelper;
 import com.example.eioms.Data;
-import com.example.eioms.LoginActivity;
 import com.example.eioms.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,9 +23,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class JournalFragment extends Fragment {
+public class SendFeedbackFragment extends Fragment {
 
-    private EditText journal;
+    private EditText feedback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,20 +35,20 @@ public class JournalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.journal_fragment, container, false);
+        View view  = inflater.inflate(R.layout.feedback_send_fragment, container, false);
 
         FloatingActionButton sendbutten = view.findViewById(R.id.bt_send);
-        journal = view.findViewById(R.id.et_journal);
+        feedback = view.findViewById(R.id.et_feedback);
         Data app = (Data)getActivity().getApplication();
         String username = app.getUsername();
 
         sendbutten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = journal.getText().toString();
+                String text = feedback.getText().toString();
                 //开始上传
-                SaveJournal saveJournal = new SaveJournal(text,username);
-                Thread thread = new Thread(saveJournal);
+                Savefeedback savefeedback = new Savefeedback(text,username);
+                Thread thread = new Thread(savefeedback);
                 thread.start();
                 try {
                     thread.join();
@@ -62,8 +58,30 @@ public class JournalFragment extends Fragment {
 
                 Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_SHORT).show();
                 //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //退出页面
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
+            }
+        });
 
-                getActivity().onBackPressed();
+        //返回上一层
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                Log.d("123","back");
+                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction().remove(fragment).commit();
+                    return true;
+                }
+
+                return false;
             }
         });
 
@@ -71,14 +89,14 @@ public class JournalFragment extends Fragment {
     }
 }
 
-class SaveJournal implements Runnable{
+class Savefeedback implements Runnable{
 
     private String text;
     private String username;
     private String time;
 
 
-    public SaveJournal(String text, String username) {
+    public Savefeedback(String text, String username) {
         this.text = text;
         this.username = username;
         Date date = new Date();
@@ -90,7 +108,7 @@ class SaveJournal implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `journal` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
+        String sql = "INSERT INTO `feedback` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);
@@ -105,3 +123,4 @@ class SaveJournal implements Runnable{
 
 
 }
+
