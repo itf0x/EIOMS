@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.eioms.student.StudentActivity;
+import com.example.eioms.teacher.TeacherActivity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -102,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(this, StudentActivity.class));
                     break;
                 case 1:
-                    //startActivity(new Intent(this, TeacherActivity.class));
+                    startActivity(new Intent(this, TeacherActivity.class));
                     break;
                 case 2:
                     //startActivity(new Intent(this, ManageActivity.class));

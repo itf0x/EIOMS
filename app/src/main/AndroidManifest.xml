@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EIOMS">
         <activity
+            android:name=".teacher.TeacherActivity"
+            android:exported="false"
+            android:label="@string/title_activity_teasher"
+            android:theme="@style/Theme.EIOMS.NoActionBar" />
+        <activity
             android:name=".student.StudentActivity"
             android:exported="false"
             android:label="@string/title_activity_student"

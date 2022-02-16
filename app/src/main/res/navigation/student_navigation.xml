@@ -9,7 +9,7 @@
         android:id="@+id/nav_notice"
         android:name="com.example.eioms.student.ui.notice.NoticeFragment"
         android:label="公告"
-        tools:layout="@layout/notice_fragment" />
+        tools:layout="@layout/notice_fragment_list" />
 
     <fragment
         android:id="@+id/nav_journal"
@@ -21,13 +21,13 @@
         android:id="@+id/nav_feedback"
         android:name="com.example.eioms.student.ui.feedback.FeedbackFragment"
         android:label="反馈"
-        tools:layout="@layout/fragment_feedback" />
+        tools:layout="@layout/feedback_fragment_list" />
 
     <fragment
         android:id="@+id/nav_message"
         android:name="com.example.eioms.student.ui.message.MessageFragment"
         android:label="留言"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/feedback_fragment_list" />
 
     <fragment
         android:id="@+id/nav_info"
