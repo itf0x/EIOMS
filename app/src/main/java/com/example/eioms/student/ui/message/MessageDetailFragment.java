@@ -49,13 +49,14 @@ public class MessageDetailFragment extends Fragment {
             content.setText(data.getContent());
         }
 
+        view.findViewById(R.id.bt_send).setVisibility(View.GONE);
+
         view.setFocusableInTouchMode(true);
         view.requestFocus();
 
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d("123","back");
                 if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
                     FragmentManager fragmentManager = getFragmentManager();
                     Fragment fragment = fragmentManager.findFragmentByTag("comment");
