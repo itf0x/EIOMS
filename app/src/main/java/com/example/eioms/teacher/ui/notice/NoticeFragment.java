@@ -58,21 +58,18 @@ public class NoticeFragment extends Fragment {
             //元素点击动作
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
-            myItemRecyclerViewAdapter.setRecyclerItemClickListener(new MyItemRecyclerViewAdapter.OnRecyclerItemClickListener() {
-                @Override
-                public void onRecyclerItemClick(int position) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("DATA",data.get(position));
-                    NoticeDetailFragment noticeDetailFragment = new NoticeDetailFragment();
-                    noticeDetailFragment.setArguments(bundle);
+            myItemRecyclerViewAdapter.setRecyclerItemClickListener(position -> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("DATA",data.get(position));
+                NoticeDetailFragment noticeDetailFragment = new NoticeDetailFragment();
+                noticeDetailFragment.setArguments(bundle);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.nav_host_fragment_content_teacher, noticeDetailFragment, null)
-                            .addToBackStack(null)
-                            .commit();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment_content_teacher, noticeDetailFragment, null)
+                        .addToBackStack(null)
+                        .commit();
 
-                }
             });
         }
         return view;
@@ -81,7 +78,7 @@ public class NoticeFragment extends Fragment {
 
 //连接数据库获取信息的异步类
 class GetNotice implements Runnable{
-    private List<Bean> data = new ArrayList<>();
+    private final List<Bean> data = new ArrayList<>();
 
     public List<Bean> getData() {
         return data;

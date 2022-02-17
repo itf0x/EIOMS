@@ -1,34 +1,31 @@
 package com.example.eioms.teacher;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
-import com.example.eioms.Data;
-import com.example.eioms.R;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eioms.Data;
+import com.example.eioms.R;
 import com.example.eioms.databinding.TeacherActivityBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class TeacherActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private TeacherActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = TeacherActivityBinding.inflate(getLayoutInflater());
+        TeacherActivityBinding binding = TeacherActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.teacherAppBar.toolbar);
@@ -44,7 +41,6 @@ public class TeacherActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        NavigationView nv = findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         TextView username = header.findViewById(R.id.tv_username);
         Data app = (Data)getApplication();

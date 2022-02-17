@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.example.eioms.Data;
 import com.example.eioms.R;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -22,13 +21,12 @@ import com.example.eioms.databinding.StudentActivityBinding;
 public class StudentActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private StudentActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = StudentActivityBinding.inflate(getLayoutInflater());
+        StudentActivityBinding binding = StudentActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.studentAppBar.toolbar);
@@ -44,7 +42,6 @@ public class StudentActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        NavigationView nv = findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
 
         TextView username = header.findViewById(R.id.tv_username);

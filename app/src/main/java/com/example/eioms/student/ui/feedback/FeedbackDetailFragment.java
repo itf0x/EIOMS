@@ -16,15 +16,6 @@ import com.example.eioms.R;
 
 public class FeedbackDetailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-
-    private Bean data;
-
-    private TextView content;
-    private TextView username;
-    private TextView time;
-    private TextView reply;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +28,11 @@ public class FeedbackDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.feedback_detail_fragment, container, false);
         if (getArguments() != null) {
-            data = getArguments().getParcelable("DATA");
-            reply = view.findViewById(R.id.tv_reply);
-            username = view.findViewById(R.id.tv_username);
-            time = view.findViewById(R.id.tv_time);
-            content = view.findViewById(R.id.tv_content);
+            Bean data = getArguments().getParcelable("DATA");
+            TextView reply = view.findViewById(R.id.tv_reply);
+            TextView username = view.findViewById(R.id.tv_username);
+            TextView time = view.findViewById(R.id.tv_time);
+            TextView content = view.findViewById(R.id.tv_content);
 
             time.setText(data.getTime());
             reply.setText(data.getReply());
@@ -52,21 +43,18 @@ public class FeedbackDetailFragment extends Fragment {
         view.setFocusableInTouchMode(true);
         view.requestFocus();
 
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d("123","back");
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction().remove(fragment).commit();
+        view.setOnKeyListener((view1, i, keyEvent) -> {
+            Log.d("123","back");
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
+
+            return false;
         });
 
         return view;

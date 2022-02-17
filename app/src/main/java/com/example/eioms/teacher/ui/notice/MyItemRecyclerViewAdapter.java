@@ -1,7 +1,6 @@
 package com.example.eioms.teacher.ui.notice;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -53,12 +52,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             title = binding.tvTitle;
 
             //点击事件
-            title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mOnItemClickListener != null){
-                        mOnItemClickListener.onRecyclerItemClick(getAdapterPosition());
-                    }
+            title.setOnClickListener(view -> {
+                if(mOnItemClickListener != null){
+                    mOnItemClickListener.onRecyclerItemClick(getAdapterPosition());
                 }
             });
         }

@@ -1,8 +1,6 @@
 package com.example.eioms.teacher.ui.feedback;
 
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class SendFeedbackFragment extends Fragment {
 
@@ -46,43 +42,35 @@ public class SendFeedbackFragment extends Fragment {
 
         FloatingActionButton sendbutten = view.findViewById(R.id.bt_send);
         feedback = view.findViewById(R.id.et_feedback);
-        Data app = (Data)getActivity().getApplication();
-        String username = app.getUsername();
 
-        sendbutten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = feedback.getText().toString();
-                //开始上传
-                Savefeedback savefeedback = new Savefeedback(text,bean.getId());
-                Thread thread = new Thread(savefeedback);
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getContext(), "回复上传成功", Toast.LENGTH_LONG).show();
+        sendbutten.setOnClickListener(view1 -> {
+            String text = feedback.getText().toString();
+            //开始上传
+            Savefeedback savefeedback = new Savefeedback(text,bean.getId());
+            Thread thread = new Thread(savefeedback);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            Toast.makeText(getContext(), "回复上传成功", Toast.LENGTH_LONG).show();
         });
 
         //返回上一层
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction().remove(fragment).commit();
-                    return true;
-                }
-
-                return false;
+        view.setOnKeyListener((view12, i, keyEvent) -> {
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
+                return true;
             }
+
+            return false;
         });
 
         return view;
@@ -91,8 +79,8 @@ public class SendFeedbackFragment extends Fragment {
 
 class Savefeedback implements Runnable{
 
-    private String text;
-    private String id;
+    private final String text;
+    private final String id;
 
 
     public Savefeedback(String text,String id) {

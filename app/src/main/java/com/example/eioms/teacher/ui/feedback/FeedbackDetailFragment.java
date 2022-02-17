@@ -17,14 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FeedbackDetailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-
     private Bean data;
-
-    private TextView content;
-    private TextView username;
-    private TextView time;
-    private TextView reply;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,10 +34,10 @@ public class FeedbackDetailFragment extends Fragment {
 
         if (getArguments() != null) {
             data = getArguments().getParcelable("DATA");
-            reply = view.findViewById(R.id.tv_reply);
-            username = view.findViewById(R.id.tv_username);
-            time = view.findViewById(R.id.tv_time);
-            content = view.findViewById(R.id.tv_content);
+            TextView reply = view.findViewById(R.id.tv_reply);
+            TextView username = view.findViewById(R.id.tv_username);
+            TextView time = view.findViewById(R.id.tv_time);
+            TextView content = view.findViewById(R.id.tv_content);
 
             time.setText(data.getTime());
             reply.setText(data.getReply());
@@ -57,40 +50,34 @@ public class FeedbackDetailFragment extends Fragment {
             button.setVisibility(View.GONE);
         }
         else {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("DATA",data);
-                    SendFeedbackFragment sendFeedbackFragment = new SendFeedbackFragment();
-                    sendFeedbackFragment.setArguments(bundle);
+            button.setOnClickListener(view1 -> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("DATA",data);
+                SendFeedbackFragment sendFeedbackFragment = new SendFeedbackFragment();
+                sendFeedbackFragment.setArguments(bundle);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_teacher,sendFeedbackFragment,"comment")
-                            .addToBackStack(null).commit();
-                }
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.nav_host_fragment_content_teacher,sendFeedbackFragment,"comment")
+                        .addToBackStack(null).commit();
             });
         }
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
 
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d("123","back");
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction().remove(fragment).commit();
+        view.setOnKeyListener((view12, i, keyEvent) -> {
+            Log.d("123","back");
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
+
+            return false;
         });
 
         return view;

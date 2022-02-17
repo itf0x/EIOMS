@@ -42,41 +42,35 @@ public class SendMessageFragment extends Fragment {
         Data app = (Data)getActivity().getApplication();
         String username = app.getUsername();
 
-        sendbutten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = feedback.getText().toString();
-                //开始上传
-                SaveMessage saveMessage = new SaveMessage(text,username);
-                Thread thread = new Thread(saveMessage);
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_LONG).show();
+        sendbutten.setOnClickListener(view1 -> {
+            String text = feedback.getText().toString();
+            //开始上传
+            SaveMessage saveMessage = new SaveMessage(text,username);
+            Thread thread = new Thread(saveMessage);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_LONG).show();
         });
 
         //返回上一层
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d("123","back");
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction().remove(fragment).commit();
-                    return true;
-                }
-
-                return false;
+        view.setOnKeyListener((view12, i, keyEvent) -> {
+            Log.d("123","back");
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
+                return true;
             }
+
+            return false;
         });
 
         return view;
@@ -85,9 +79,9 @@ public class SendMessageFragment extends Fragment {
 
 class SaveMessage implements Runnable{
 
-    private String text;
-    private String username;
-    private String time;
+    private final String text;
+    private final String username;
+    private final String time;
 
 
     public SaveMessage(String text, String username) {

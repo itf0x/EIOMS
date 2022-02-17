@@ -3,10 +3,6 @@ package com.example.eioms.student.ui.journal;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +12,8 @@ import android.widget.Toast;
 
 import com.example.eioms.DBOpenHelper;
 import com.example.eioms.Data;
-import com.example.eioms.LoginActivity;
 import com.example.eioms.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,25 +40,22 @@ public class JournalFragment extends Fragment {
         Data app = (Data)getActivity().getApplication();
         String username = app.getUsername();
 
-        sendbutten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = journal.getText().toString();
-                //开始上传
-                SaveJournal saveJournal = new SaveJournal(text,username);
-                Thread thread = new Thread(saveJournal);
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_SHORT).show();
-                //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-                getActivity().onBackPressed();
+        sendbutten.setOnClickListener(view1 -> {
+            String text = journal.getText().toString();
+            //开始上传
+            SaveJournal saveJournal = new SaveJournal(text,username);
+            Thread thread = new Thread(saveJournal);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_SHORT).show();
+            //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+            getActivity().onBackPressed();
         });
 
         return view;
@@ -73,9 +64,9 @@ public class JournalFragment extends Fragment {
 
 class SaveJournal implements Runnable{
 
-    private String text;
-    private String username;
-    private String time;
+    private final String text;
+    private final String username;
+    private final String time;
 
 
     public SaveJournal(String text, String username) {

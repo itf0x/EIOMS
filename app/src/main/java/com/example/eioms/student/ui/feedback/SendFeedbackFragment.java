@@ -42,47 +42,41 @@ public class SendFeedbackFragment extends Fragment {
         Data app = (Data)getActivity().getApplication();
         String username = app.getUsername();
 
-        sendbutten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = feedback.getText().toString();
-                //开始上传
-                Savefeedback savefeedback = new Savefeedback(text,username);
-                Thread thread = new Thread(savefeedback);
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_SHORT).show();
-                //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                //退出页面
-                FragmentManager fragmentManager = getFragmentManager();
-                Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction().remove(fragment).commit();
+        sendbutten.setOnClickListener(view1 -> {
+            String text = feedback.getText().toString();
+            //开始上传
+            Savefeedback savefeedback = new Savefeedback(text,username);
+            Thread thread = new Thread(savefeedback);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_SHORT).show();
+            //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            //退出页面
+            FragmentManager fragmentManager = getFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag("comment");
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction().remove(fragment).commit();
         });
 
         //返回上一层
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d("123","back");
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction().remove(fragment).commit();
-                    return true;
-                }
-
-                return false;
+        view.setOnKeyListener((view12, i, keyEvent) -> {
+            Log.d("123","back");
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().remove(fragment).commit();
+                return true;
             }
+
+            return false;
         });
 
         return view;
@@ -91,9 +85,9 @@ public class SendFeedbackFragment extends Fragment {
 
 class Savefeedback implements Runnable{
 
-    private String text;
-    private String username;
-    private String time;
+    private final String text;
+    private final String username;
+    private final String time;
 
 
     public Savefeedback(String text, String username) {

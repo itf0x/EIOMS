@@ -63,21 +63,18 @@ public class FeedbackFragment extends Fragment {
 
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
-            myItemRecyclerViewAdapter.setRecyclerItemClickListener(new MyItemRecyclerViewAdapter.OnRecyclerItemClickListener() {
-                @Override
-                public void onRecyclerItemClick(int position) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("DATA",data.get(position));
-                    FeedbackDetailFragment feedbackDetailFragment = new FeedbackDetailFragment();
-                    feedbackDetailFragment.setArguments(bundle);
+            myItemRecyclerViewAdapter.setRecyclerItemClickListener(position -> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("DATA",data.get(position));
+                FeedbackDetailFragment feedbackDetailFragment = new FeedbackDetailFragment();
+                feedbackDetailFragment.setArguments(bundle);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_teacher, feedbackDetailFragment, "comment")
-                            .addToBackStack(null)
-                            .commit();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.nav_host_fragment_content_teacher, feedbackDetailFragment, "comment")
+                        .addToBackStack(null)
+                        .commit();
 
-                }
             });
         }
 
@@ -87,7 +84,7 @@ public class FeedbackFragment extends Fragment {
 
 //连接数据库获取信息的异步类
 class GetFeedback implements Runnable{
-    private List<Bean> data = new ArrayList<>();
+    private final List<Bean> data = new ArrayList<>();
 
     public List<Bean> getData() {
         return data;

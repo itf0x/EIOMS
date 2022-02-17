@@ -13,20 +13,15 @@ import android.widget.Toast;
 
 import com.example.eioms.DBOpenHelper;
 import com.example.eioms.Data;
-import com.example.eioms.LoginActivity;
 import com.example.eioms.R;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class InfoFragment extends Fragment {
     private EditText username;
-    private EditText id;
     private EditText name;
-    private Button save;
 
 
     @Override
@@ -42,27 +37,24 @@ public class InfoFragment extends Fragment {
         // Inflate the layout for this fragment
         Data app = (Data)getActivity().getApplication();
 
-        id = view.findViewById(R.id.et_id);
+        EditText id = view.findViewById(R.id.et_id);
         username = view.findViewById(R.id.et_username);
         name = view.findViewById(R.id.et_name);
-        save = view.findViewById(R.id.bt_save);
+        Button save = view.findViewById(R.id.bt_save);
 
         id.setText(app.getId());
         username.setText(app.getUsername());
         name.setText(app.getName());
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SaveInfo saveInfo = new SaveInfo(name.getText().toString(),username.getText().toString());
-                Thread thread = new Thread(saveInfo);
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(getContext(), "保存成功,重启应用后生效", Toast.LENGTH_LONG).show();
+        save.setOnClickListener(view1 -> {
+            SaveInfo saveInfo = new SaveInfo(name.getText().toString(),username.getText().toString());
+            Thread thread = new Thread(saveInfo);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            Toast.makeText(getContext(), "保存成功,重启应用后生效", Toast.LENGTH_LONG).show();
         });
 
         return view;
@@ -71,8 +63,8 @@ public class InfoFragment extends Fragment {
 
 class SaveInfo implements Runnable{
 
-    private String name;
-    private String username;
+    private final String name;
+    private final String username;
 
 
     public SaveInfo(String name, String username) {
@@ -82,7 +74,7 @@ class SaveInfo implements Runnable{
 
     @Override
     public void run() {
-        Connection conn = null;
+        Connection conn;
         conn =(Connection) DBOpenHelper.getConn();
         //获取数据库中身份证信息
         String sql = "UPDATE `user` SET `NAME`='"+name+"' WHERE `USER` = '"+username+"'";

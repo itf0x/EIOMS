@@ -62,33 +62,25 @@ public class MessageFragment extends Fragment {
 
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
-            myItemRecyclerViewAdapter.setRecyclerItemClickListener(new MyItemRecyclerViewAdapter.OnRecyclerItemClickListener() {
-                @Override
-                public void onRecyclerItemClick(int position) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("DATA",data.get(position));
-                    MessageDetailFragment messageDetailFragment = new MessageDetailFragment();
-                    messageDetailFragment.setArguments(bundle);
+            myItemRecyclerViewAdapter.setRecyclerItemClickListener(position -> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("DATA",data.get(position));
+                MessageDetailFragment messageDetailFragment = new MessageDetailFragment();
+                messageDetailFragment.setArguments(bundle);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_student, messageDetailFragment, "comment")
-                            .addToBackStack(null)
-                            .commit();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.nav_host_fragment_content_student, messageDetailFragment, "comment")
+                        .addToBackStack(null)
+                        .commit();
 
-                }
             });
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.nav_host_fragment_content_student,new SendMessageFragment(),"comment")
-                        .addToBackStack(null).commit();
-            }
-        });
+        button.setOnClickListener(view1 -> getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.nav_host_fragment_content_student,new SendMessageFragment(),"comment")
+                .addToBackStack(null).commit());
 
         return view;
     }
@@ -96,7 +88,7 @@ public class MessageFragment extends Fragment {
 
 //连接数据库获取信息的异步类
 class GetMessage implements Runnable{
-    private List<Bean> data = new ArrayList<>();
+    private final List<Bean> data = new ArrayList<>();
 
     public List<Bean> getData() {
         return data;

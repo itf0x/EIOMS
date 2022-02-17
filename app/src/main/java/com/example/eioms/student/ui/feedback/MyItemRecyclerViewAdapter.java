@@ -53,12 +53,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             time = binding.tvTime;
 
             //点击事件
-            title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mOnItemClickListener != null){
-                        mOnItemClickListener.onRecyclerItemClick(getAdapterPosition());
-                    }
+            title.setOnClickListener(view -> {
+                if(mOnItemClickListener != null){
+                    mOnItemClickListener.onRecyclerItemClick(getAdapterPosition());
                 }
             });
 

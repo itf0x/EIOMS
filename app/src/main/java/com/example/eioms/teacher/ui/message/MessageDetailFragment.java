@@ -12,19 +12,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.eioms.Bean;
 import com.example.eioms.R;
-import com.example.eioms.teacher.ui.feedback.SendFeedbackFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MessageDetailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-
     private Bean data;
-
-    private TextView content;
-    private TextView username;
-    private TextView time;
-    private TextView reply;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,10 +33,10 @@ public class MessageDetailFragment extends Fragment {
 
         if (getArguments() != null) {
             data = getArguments().getParcelable("DATA");
-            reply = view.findViewById(R.id.tv_reply);
-            username = view.findViewById(R.id.tv_username);
-            time = view.findViewById(R.id.tv_time);
-            content = view.findViewById(R.id.tv_content);
+            TextView reply = view.findViewById(R.id.tv_reply);
+            TextView username = view.findViewById(R.id.tv_username);
+            TextView time = view.findViewById(R.id.tv_time);
+            TextView content = view.findViewById(R.id.tv_content);
 
             time.setText(data.getTime());
             reply.setText(data.getReply());
@@ -54,19 +46,16 @@ public class MessageDetailFragment extends Fragment {
 
         if(data.getReply() == null || "".equals(data.getReply()))
         {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("DATA",data);
-                    SendMessageFragment sendMessageFragment = new SendMessageFragment();
-                    sendMessageFragment.setArguments(bundle);
+            button.setOnClickListener(view12 -> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("DATA",data);
+                SendMessageFragment sendMessageFragment = new SendMessageFragment();
+                sendMessageFragment.setArguments(bundle);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.nav_host_fragment_content_teacher,sendMessageFragment,"send")
-                            .addToBackStack(null).commit();
-                }
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.nav_host_fragment_content_teacher,sendMessageFragment,"send")
+                        .addToBackStack(null).commit();
             });
         }
         else {
@@ -76,18 +65,15 @@ public class MessageDetailFragment extends Fragment {
         view.setFocusableInTouchMode(true);
         view.requestFocus();
 
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                    getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                    return true;
-                }
-
-                return false;
+        view.setOnKeyListener((view1, i, keyEvent) -> {
+            if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                return true;
             }
+
+            return false;
         });
 
         return view;

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import java.sql.Statement;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btnLogin;
     private EditText etAccount, etId;
     private CheckBox cbSave, cbAutologin;
     private SharedPreferences sp;
@@ -39,31 +37,25 @@ public class LoginActivity extends AppCompatActivity {
         //查找界面元素
         etAccount = findViewById(R.id.et_username);
         etId = findViewById(R.id.et_id);
-        btnLogin = findViewById(R.id.bt_login);
+        Button btnLogin = findViewById(R.id.bt_login);
         cbAutologin = findViewById(R.id.cb_autologin);
         cbSave = findViewById(R.id.cb_rember);
 
-        cbAutologin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    cbSave.setChecked(true);
-                    cbAutologin.setChecked(true);
-                } else {
-                    cbAutologin.setChecked(false);
-                }
+        cbAutologin.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                cbSave.setChecked(true);
+                cbAutologin.setChecked(true);
+            } else {
+                cbAutologin.setChecked(false);
             }
         });
 
-        cbSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    cbSave.setChecked(true);
-                } else {
-                    cbSave.setChecked(false);
-                    cbAutologin.setChecked(false);
-                }
+        cbSave.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                cbSave.setChecked(true);
+            } else {
+                cbSave.setChecked(false);
+                cbAutologin.setChecked(false);
             }
         });
 
@@ -123,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveinfo() {
         if (cbAutologin.isChecked()) {
-            sp.edit().putBoolean("AUTO_ISCHECK", true).commit();
+            sp.edit().putBoolean("AUTO_ISCHECK", true).apply();
         } else {
-            sp.edit().putBoolean("AUTO_ISCHECK", false).commit();
+            sp.edit().putBoolean("AUTO_ISCHECK", false).apply();
         }
 
         if (cbSave.isChecked()) {
@@ -134,9 +126,9 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("USERNAME", etAccount.getText().toString());
             editor.putString("ID", etId.getText().toString());
             editor.putBoolean("SAVE_ISCHECK", true);
-            editor.commit();
+            editor.apply();
         } else {
-            sp.edit().clear().commit();
+            sp.edit().clear().apply();
         }
     }
 
@@ -144,12 +136,9 @@ public class LoginActivity extends AppCompatActivity {
 
 //连接数据库获取信息的异步类
 class GetInfo implements Runnable{
-    private String number;
-    private String id;
-    private String auth;
-    private String name;
-    private String inputid;
-    private Data app;
+    private final String number;
+    private final String inputid;
+    private final Data app;
     private int res;
 
     public int getRes() {
@@ -164,7 +153,7 @@ class GetInfo implements Runnable{
 
     @Override
     public void run() {
-        Connection conn = null;
+        Connection conn;
         conn =(Connection) DBOpenHelper.getConn();
         //获取数据库中身份证信息
         String sql = "SELECT id from user WHERE user='"+number+"'";
@@ -173,7 +162,7 @@ class GetInfo implements Runnable{
             st = (Statement) conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             rs.next();
-            id = rs.getString(1);
+            String id = rs.getString(1);
             //如果与输入一致
             if(inputid.equals(id))
             {
@@ -183,13 +172,13 @@ class GetInfo implements Runnable{
                 sql = "SELECT AUTHORITY from user WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
-                auth = rs.getString(1);
+                String auth = rs.getString(1);
 
                 //获取用户姓名
                 sql = "SELECT name from user WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
-                name = rs.getString(1);
+                String name = rs.getString(1);
                 app.setName(name);
 
                 res = Integer.parseInt(auth);
