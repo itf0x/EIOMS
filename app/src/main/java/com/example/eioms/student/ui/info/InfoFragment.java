@@ -77,7 +77,7 @@ class SaveInfo implements Runnable{
         Connection conn;
         conn =(Connection) DBOpenHelper.getConn();
         //获取数据库中身份证信息
-        String sql = "UPDATE `user` SET `NAME`='"+name+"' WHERE `USER` = '"+username+"'";
+        String sql = "UPDATE `USER` SET `NAME`='"+name+"' WHERE `USER` = '"+username+"'";
         PreparedStatement pst;
         try {
             pst = (PreparedStatement) conn.prepareStatement(sql);

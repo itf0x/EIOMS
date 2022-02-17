@@ -92,7 +92,7 @@ class SaveMessage implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "UPDATE message set REPLY = '"+text+"' WHERE ID = "+ id;
+        String sql = "UPDATE MESSAGE set REPLY = '"+text+"' WHERE ID = "+ id;
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

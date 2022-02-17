@@ -107,7 +107,7 @@ class NewUser implements Runnable{
         conn =(Connection) DBOpenHelper.getConn();
         //获取数据库中身份证信息
 
-        String sql = "INSERT INTO (ID,AUTHORITY,NAME,user) VALUES("+id+","+authority+",'"+name+"',"+username+")";
+        String sql = "INSERT INTO USER (ID,AUTHORITY,NAME,user) VALUES("+id+","+authority+",'"+name+"',"+username+")";
         PreparedStatement pst;
         try {
             pst = (PreparedStatement) conn.prepareStatement(sql);

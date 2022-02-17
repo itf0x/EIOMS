@@ -107,7 +107,7 @@ class SaveNotice implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `notice` (content,user,time,title) VALUES('"+noticetext+"','"+username+"','"+time+"','"+titiletext+"')";
+        String sql = "INSERT INTO `NOTICE` (content,user,time,title) VALUES('"+noticetext+"','"+username+"','"+time+"','"+titiletext+"')";
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

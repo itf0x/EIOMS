@@ -96,7 +96,7 @@ class SaveMessage implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `message` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
+        String sql = "INSERT INTO `MESSAGE` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

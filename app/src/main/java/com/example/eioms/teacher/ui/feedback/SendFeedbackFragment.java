@@ -92,7 +92,7 @@ class Savefeedback implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "UPDATE feedback set REPLY = '"+text+"' WHERE ID = "+ id;
+        String sql = "UPDATE FEEDBACK set REPLY = '"+text+"' WHERE ID = "+ id;
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

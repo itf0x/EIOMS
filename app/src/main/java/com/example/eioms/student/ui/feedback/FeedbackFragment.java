@@ -99,7 +99,7 @@ class GetFeedback implements Runnable{
     public void run() {
         Connection conn = DBOpenHelper.getConn();
         //获取数据库中公告信息
-        String sql = "SELECT f.ID,f.`USER`,f.CONTENT,f.TIME,f.REPLY,u.`NAME` FROM feedback as f LEFT JOIN user as u on f.`USER` = u.`USER`";
+        String sql = "SELECT f.ID,f.`USER`,f.CONTENT,f.TIME,f.REPLY,u.`NAME` FROM FEEDBACK as f LEFT JOIN USER as u on f.`USER` = u.`USER`";
         Statement st;
         try {
             st = conn.createStatement();

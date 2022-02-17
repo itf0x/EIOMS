@@ -102,7 +102,7 @@ class Savefeedback implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `feedback` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
+        String sql = "INSERT INTO `FEEDBACK` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

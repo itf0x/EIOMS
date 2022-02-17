@@ -100,7 +100,7 @@ class GetUser implements Runnable{
     public void run() {
         Connection conn = DBOpenHelper.getConn();
         //获取数据库中公告信息
-        String sql = "SELECT * FROM `user`";
+        String sql = "SELECT * FROM `USER`";
         Statement st;
         try {
             st = conn.createStatement();

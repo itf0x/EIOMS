@@ -158,7 +158,7 @@ class GetInfo implements Runnable{
         Connection conn;
         conn =(Connection) DBOpenHelper.getConn();
         //获取数据库中身份证信息
-        String sql = "SELECT id from user WHERE user='"+number+"'";
+        String sql = "SELECT id from USER WHERE user='"+number+"'";
         Statement st;
         try {
             st = (Statement) conn.createStatement();
@@ -171,13 +171,13 @@ class GetInfo implements Runnable{
                 app.setUsername(number);
                 app.setId(inputid);
                 //获取用户身份
-                sql = "SELECT AUTHORITY from user WHERE user='"+number+"'";
+                sql = "SELECT AUTHORITY from USER WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
                 String auth = rs.getString(1);
 
                 //获取用户姓名
-                sql = "SELECT name from user WHERE user='"+number+"'";
+                sql = "SELECT name from USER WHERE user='"+number+"'";
                 rs = st.executeQuery(sql);
                 rs.next();
                 String name = rs.getString(1);

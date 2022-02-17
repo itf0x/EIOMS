@@ -81,7 +81,7 @@ class SaveJournal implements Runnable{
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `journal` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
+        String sql = "INSERT INTO `JOURNAL` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

@@ -90,7 +90,7 @@ class GetNotice implements Runnable{
     public void run() {
         Connection conn = DBOpenHelper.getConn();
         //获取数据库中公告信息
-        String sql = "SELECT n.ID,n.`USER`,n.CONTENT,n.TIME,n.TITLE,u.`NAME` FROM notice as n LEFT JOIN user as u on u.`USER` = n.`USER`";
+        String sql = "SELECT n.ID,n.`USER`,n.CONTENT,n.TIME,n.TITLE,u.`NAME` FROM NOTICE as n LEFT JOIN USER as u on u.`USER` = n.`USER`";
         Statement st;
         try {
             st = conn.createStatement();
