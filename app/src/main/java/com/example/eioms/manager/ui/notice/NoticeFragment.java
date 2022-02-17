@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eioms.Bean;
 import com.example.eioms.DBOpenHelper;
 import com.example.eioms.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -38,6 +40,8 @@ public class NoticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.notice_fragment_list, container, false);
+        FloatingActionButton button = view.findViewById(R.id.bt_newnotice);
+        button.setVisibility(View.VISIBLE);
         //异步查询服务器公告
         GetNotice getInfo = new GetNotice();
         Thread thread = new Thread(getInfo);
@@ -51,9 +55,9 @@ public class NoticeFragment extends Fragment {
         data = getInfo.getData();
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof CoordinatorLayout) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //元素点击动作
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
@@ -71,6 +75,15 @@ public class NoticeFragment extends Fragment {
                         .commit();
 
             });
+
+            //按钮点击
+            button.setOnClickListener(view1 -> {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.nav_host_fragment_content_manager,new SendNoticeFragment(),"send")
+                        .addToBackStack(null).commit();
+            });
+
         }
         return view;
     }

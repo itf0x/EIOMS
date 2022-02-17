@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,9 +52,9 @@ public class NoticeFragment extends Fragment {
         data = getInfo.getData();
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof CoordinatorLayout) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = view.findViewById(R.id.rv_list);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //元素点击动作
             MyItemRecyclerViewAdapter myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(data);
