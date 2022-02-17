@@ -1,5 +1,6 @@
-package com.example.eioms.student.ui.message;
+package com.example.eioms.teacher.ui.message;
 
+import android.app.Instrumentation;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.eioms.Bean;
 import com.example.eioms.DBOpenHelper;
 import com.example.eioms.Data;
 import com.example.eioms.R;
@@ -25,6 +27,7 @@ import java.util.Date;
 
 public class SendMessageFragment extends Fragment {
 
+    private Bean bean;
     private EditText feedback;
 
     @Override
@@ -37,6 +40,10 @@ public class SendMessageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.feedback_send_fragment, container, false);
 
+        if (getArguments() != null) {
+            bean = getArguments().getParcelable("DATA");
+        }
+
         FloatingActionButton sendbutten = view.findViewById(R.id.bt_send);
         feedback = view.findViewById(R.id.et_feedback);
         Data app = (Data)getActivity().getApplication();
@@ -47,7 +54,7 @@ public class SendMessageFragment extends Fragment {
             public void onClick(View view) {
                 String text = feedback.getText().toString();
                 //开始上传
-                SaveMessage saveMessage = new SaveMessage(text,username);
+                SaveMessage saveMessage = new SaveMessage(text,bean.getId());
                 Thread thread = new Thread(saveMessage);
                 thread.start();
                 try {
@@ -56,7 +63,7 @@ public class SendMessageFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                Toast.makeText(getContext(), "日志上传成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "回复上传成功", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -69,7 +76,7 @@ public class SendMessageFragment extends Fragment {
                 Log.d("123","back");
                 if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK){
                     FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentByTag("comment");
+                    Fragment fragment = fragmentManager.findFragmentByTag("send");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction().remove(fragment).commit();
                     return true;
@@ -86,23 +93,18 @@ public class SendMessageFragment extends Fragment {
 class SaveMessage implements Runnable{
 
     private String text;
-    private String username;
-    private String time;
+    private String id;
 
-
-    public SaveMessage(String text, String username) {
+    public SaveMessage(String text, String id) {
         this.text = text;
-        this.username = username;
-        Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        this.time = ft.format(date);
+        this.id = id;
     }
 
     @Override
     public void run() {
         Connection conn;
         conn = DBOpenHelper.getConn();
-        String sql = "INSERT INTO `message` (content,user,time) VALUES('"+text+"','"+username+"','"+time+"')";
+        String sql = "UPDATE message set REPLY = '"+text+"' WHERE ID = "+ id;
         PreparedStatement pst;
         try {
             pst = conn.prepareStatement(sql);

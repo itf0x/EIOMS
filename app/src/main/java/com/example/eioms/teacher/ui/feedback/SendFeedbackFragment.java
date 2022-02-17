@@ -54,7 +54,7 @@ public class SendFeedbackFragment extends Fragment {
             public void onClick(View view) {
                 String text = feedback.getText().toString();
                 //开始上传
-                Savefeedback savefeedback = new Savefeedback(text,username,bean.getId());
+                Savefeedback savefeedback = new Savefeedback(text,bean.getId());
                 Thread thread = new Thread(savefeedback);
                 thread.start();
                 try {
@@ -63,13 +63,7 @@ public class SendFeedbackFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                Toast.makeText(getContext(), "回复上传成功", Toast.LENGTH_SHORT).show();
-                //Snackbar.make(view, "日志上传成功", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                //退出页面
-                FragmentManager fragmentManager = getFragmentManager();
-                Fragment fragment = fragmentManager.findFragmentByTag("comment");
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction().remove(fragment).commit();
+                Toast.makeText(getContext(), "回复上传成功", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -101,7 +95,7 @@ class Savefeedback implements Runnable{
     private String id;
 
 
-    public Savefeedback(String text, String username,String id) {
+    public Savefeedback(String text,String id) {
         this.text = text;
         this.id = id;
     }
