@@ -28,6 +28,11 @@
             android:label="@string/title_activity_manager"
             android:theme="@style/Theme.EIOMS.NoActionBar" />
         <activity
+            android:name=".admin.AdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_admin"
+            android:theme="@style/Theme.EIOMS.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

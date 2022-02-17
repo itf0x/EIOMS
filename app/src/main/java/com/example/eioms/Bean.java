@@ -13,9 +13,7 @@ public class Bean implements Parcelable {
     private String time;
     private String reply;
 
-    public Bean(){
-
-    }
+    public Bean(){}
 
     protected Bean(Parcel in) {
         id = in.readString();
