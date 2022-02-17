@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_navigation"
+    app:startDestination="@+id/nav_notice">
+
+    <fragment
+        android:id="@+id/nav_notice"
+        android:name="com.example.eioms.manager.ui.notice.NoticeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/notice_fragment_list" />
+
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="com.example.eioms.manager.ui.feedback.FeedbackFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/feedback_fragment_list" />
+
+    <fragment
+        android:id="@+id/nav_message"
+        android:name="com.example.eioms.manager.ui.message.MessageFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/feedback_fragment_list" />
+</navigation>

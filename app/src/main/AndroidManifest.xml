@@ -23,6 +23,11 @@
             android:label="@string/title_activity_student"
             android:theme="@style/Theme.EIOMS.NoActionBar" />
         <activity
+            android:name=".manager.ManagerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_manager"
+            android:theme="@style/Theme.EIOMS.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

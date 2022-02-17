@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eioms.manager.ManagerActivity;
 import com.example.eioms.student.StudentActivity;
 import com.example.eioms.teacher.TeacherActivity;
 
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(this, TeacherActivity.class));
                     break;
                 case 2:
-                    //startActivity(new Intent(this, ManageActivity.class));
+                    startActivity(new Intent(this, ManagerActivity.class));
                     break;
                 case 3:
                     //startActivity(new Intent(this, AdminActivity.class));
