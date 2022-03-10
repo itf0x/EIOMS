@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DBOpenHelper {
     private static final String diver = "com.mysql.jdbc.Driver";
     //加入utf-8是为了后面往表中输入中文，表中不会出现乱码的情况
-    private static final String url = "jdbc:mysql://192.168.2.192:3306/eioms?characterEncoding=utf-8";
-    private static final String user = "root";//用户名
-    private static final String password = "ww1999211";//密码
+    private static final String url = "jdbc:mysql://106.75.233.147:3306/eioms?characterEncoding=utf-8";
+    private static final String user = "EIOMS";//用户名
+    private static final String password = "WZXryfptzFar5p4j";//密码
     /*
      * 连接数据库
      * */

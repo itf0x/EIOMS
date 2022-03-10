@@ -1,27 +1,61 @@
 package com.example.eioms.admin.ui.message;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.eioms.Bean;
+import com.example.eioms.DBOpenHelper;
 import com.example.eioms.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class MessageDetailFragment extends Fragment {
 
     private Bean data;
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.delbuttom,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.delete://监听菜单按钮
+                // 功能代码
+                DelMessage delMessage = new DelMessage(data.getId());
+                Thread thread = new Thread(delMessage);
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Toast.makeText(getContext(), "删除成功", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -78,5 +112,34 @@ public class MessageDetailFragment extends Fragment {
 
         return view;
     }
+
+}
+
+class DelMessage implements Runnable{
+
+    private final String id;
+
+    public DelMessage(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public void run() {
+        Connection conn;
+        conn = DBOpenHelper.getConn();
+
+        String sql = "DELETE FROM MESSAGE WHERE ID = "+ id;
+        PreparedStatement pst;
+        try {
+            pst = conn.prepareStatement(sql);
+            //插入到数据库中
+            pst.executeUpdate();
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
